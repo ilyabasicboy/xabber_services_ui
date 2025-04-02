@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"] // Ensure this alias is set
+        }
+    },
+    "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "xabber-services-ui",
+  "version": "1.0.0",
+  "description": "A Vue.js application using Vite",
+  "main": "public/index.html",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.0",
+    "vue-router": "^4.x.x"
+  },
+  "devDependencies": {
+    "vite": "^4.0.0",
+    "@vitejs/plugin-vue": "^4.0.0"
+  },
+  "license": "MIT"
+}
