@@ -3,17 +3,18 @@
         <form @submit.prevent="handleLogin">
             <div>
                 <label for="jid">JID:</label>
-                <input type="text" id="jid" v-model="jid" required />
+                <input type="text" id="jid" v-model="jid" value="{{ jid }}" required />
                 <p v-if="error" style="color: red;">{{ error }}</p>
             </div>
             <button type="submit">Next</button>
         </form>
-        <p v-if="serverError" ">{{ serverError }}</p>
+        <p v-if="serverError">{{ serverError }}</p>
     </div>
 </template>
 
 <script>
-import { API_BASE_URL } from '@/config';
+import {api, endpoints} from '/src/services/api';
+import { useRouter } from 'vue-router';
 
 export default {
     name: 'LoginForm',
@@ -21,30 +22,33 @@ export default {
         return {
             jid: '',
             error: '', // Removed validation error usage
-            serverError: '' // Added to store server error messages
+            serverError: '', // Added to store server error messages
+            jid: localStorage.getItem('jid') || ''
         };
+    },
+    setup() {
+        const router = useRouter();
+        return { router };
     },
     methods: {
         async handleLogin() { // Renamed back to handleLogin
             this.error = ''; // Clear error
             this.serverError = ''; // Clear server error before making a new request
             try {
-                const response = await fetch(`${API_BASE_URL}/xabber_auth_jwt/xmpp_code_request/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ "jid": this.jid, "type": "message" })
-                });
+                const response = await api.post(
+                    endpoints.requestCode,
+                    {"jid": this.jid, "type": "message"}
+                );
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    this.serverError = errorData.error || 'An error occurred. Please try again.';
+                if (200 >= response.status < 300)  {
+                    localStorage.setItem("jid", this.jid);
+                    this.router.push({ name: 'LoginConfirm'});
+                }
+                else {
+                    this.serverError = response.data.error || 'An error occurred. Please try again.';
                     return;
                 }
 
-                console.log('Request sent successfully.');
-                this.$emit('login-success', this.jid);
             } catch (error) {
                 this.serverError = 'Failed to connect to the server. Please try again later.';
                 console.error('Error during login:', error);
