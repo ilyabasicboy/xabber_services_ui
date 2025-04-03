@@ -19,14 +19,14 @@
           Account Type
         </div>
         <div v-if="accountData.managed_host">Hosted by Xabber</div>
-        <!-- Todo: fix else extention -->
+        <!-- Todo: fix else condition -->
         <div v-else>Hosted by blablabla</div>
       </div>
       <div>
         <div>
           Plan
         </div>
-        <div v-if="basicSubscription?.price">Paid</div>
+        <div v-if="basicSubscription?.price > 0">Paid</div>
         <div v-else>Free</div>
       </div>
 
@@ -61,7 +61,7 @@
           const accountServicesResponse = await api.get(endpoints.accountServices);
           const accountServices = accountServicesResponse.data || [];
           const basicSubscriptions = accountServices.filter(service => service?.group === BASIC_SUBSCRIPTION_GROUP);
-
+          console.log(basicSubscriptions);
           if (!basicSubscriptions.length) {
             return {};
           }
