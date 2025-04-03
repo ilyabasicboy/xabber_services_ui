@@ -9,6 +9,9 @@ const api = axios.create({
 const endpoints = {
     requestCode: "xabber_auth_jwt/xmpp_code_request/",
     confirmCode: "xabber_auth_jwt/xmpp_auth/",
+    accountData: "/api/v1/accounts/current/",
+    accountServices: "/api/v1/accounts/account-services/",
+    serviceList: "/api/v1/accounts/services/",
 };
 
 api.interceptors.request.use(
@@ -17,6 +20,7 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    config.headers['Content-Type'] = 'application/json';
     return config;
   },
   (error) => Promise.reject(error)

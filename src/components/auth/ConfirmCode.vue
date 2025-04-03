@@ -59,7 +59,16 @@ export default {
                     return;
                 }
             } catch (error) {
-                this.serverError = 'Failed to connect to the server. Please try again later.';
+                if (error.response) {
+                    // Server responded with a status code outside the 2xx range
+                    this.serverError = error.response.data?.error || `Error: ${error.response.status} - ${error.response.statusText}`;
+                } else if (error.request) {
+                    // Request was made but no response was received
+                    this.serverError = 'No response received from the server. Please try again later.';
+                } else {
+                    // Something else happened while setting up the request
+                    this.serverError = 'An unexpected error occurred. Please try again later.';
+                }
                 console.error('Error during login:', error);
             }
         },
