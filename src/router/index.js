@@ -1,14 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import authService from '/src/services/auth';
 import Home from '../views/Home.vue';
-import Login from '../views/Login.vue';
-import LoginConfirm from '../views/LoginConfirm.vue';
+import Login from '../views/auth/Login.vue';
+import LoginConfirm from '../views/auth/LoginConfirm.vue';
+import ManagePlan from '../views/ManagePlan.vue';
+import RecoveryEmail from '../views/RecoveryEmail.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/manage_plan/',
+    name: 'ManagePlan',
+    component: ManagePlan,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/recovery_email/',
+    name: 'RecoveryEmail',
+    component: RecoveryEmail,
     meta: { requiresAuth: true },
   },
   {

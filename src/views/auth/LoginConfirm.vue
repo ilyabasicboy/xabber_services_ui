@@ -8,7 +8,7 @@
 </template>
   
 <script>
-import ConfirmCode from '../components/auth/ConfirmCode.vue';
+import ConfirmCode from '/src/components/auth/ConfirmCode.vue';
 
 export default {
     name: 'LoginConfirm',
