@@ -12,6 +12,7 @@ const endpoints = {
     accountData: "/api/v1/accounts/current/",
     accountServices: "/api/v1/accounts/account-services/",
     serviceList: "/api/v1/accounts/services/",
+    emailList: "api/v1/accounts/email/list/"
 };
 
 api.interceptors.request.use(

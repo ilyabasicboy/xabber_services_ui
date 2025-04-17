@@ -4,7 +4,7 @@ import Home from '../views/Home.vue';
 import Login from '../views/auth/Login.vue';
 import LoginConfirm from '../views/auth/LoginConfirm.vue';
 import ManagePlan from '../views/ManagePlan.vue';
-import RecoveryEmail from '../views/RecoveryEmail.vue';
+import Email from '../views/Email.vue';
 
 const routes = [
   {
@@ -20,9 +20,9 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/recovery_email/',
-    name: 'RecoveryEmail',
-    component: RecoveryEmail,
+    path: '/email/',
+    name: 'Email',
+    component: Email,
     meta: { requiresAuth: true },
   },
   {

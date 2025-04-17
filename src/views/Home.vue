@@ -21,7 +21,7 @@
         Security
       </div>
 
-      <router-link :to="{ name: 'RecoveryEmail' }">
+      <router-link :to="{ name: 'Email' }">
         Account Recovery Email
         <span>Helps you regain access to your account</span>
       </router-link>
@@ -37,25 +37,25 @@
 </template>
 
 <script>
-  import AccountPlan from '../components/AccountPlan.vue';
+  import AccountPlan from '/src/components/AccountPlan.vue';
   import authService from '/src/services/auth';
   import { useRouter } from 'vue-router';
 
   export default {
-      name: 'Home',
-      components: {
-        AccountPlan,
+    name: 'Home',
+    components: {
+      AccountPlan,
+    },
+    setup() {
+      const router = useRouter();
+      return { router };
+    },
+    methods: {
+      handleLogout() {
+        authService.logout();
+        this.router.push({name: 'Login'});
       },
-      setup() {
-        const router = useRouter();
-        return { router };
-      },
-      methods: {
-        handleLogout() {
-          authService.logout();
-          this.router.push({name: 'Login'});
-        },
-      }
+    }
   };
 </script>
 
